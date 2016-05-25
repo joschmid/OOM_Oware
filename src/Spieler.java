@@ -1,7 +1,7 @@
 
-public class Spieler {
-	String name;
-	int depot;
+public abstract class Spieler {
+	public String name;
+	public int depot;
 
 	public Spieler(String name){
 		this.name = name;
