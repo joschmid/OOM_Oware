@@ -4,7 +4,11 @@ public class User extends Spieler {
 		super(name);
 	}
 
-	public int feldwaehlenUser(int feld){
+	public User() {
+
+	}
+
+	public int feldwaehlenUser(int feld) {
 		return feld;
 	}
 }

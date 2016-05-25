@@ -1,11 +1,16 @@
 
-public abstract class Spieler {
+public class Spieler {
 	public String name;
 	public int depot;
 
-	public Spieler(String name){
+	public Spieler() {
+		this.name = null;
+		this.depot = 0;
+	}
+
+	public Spieler(String name) {
 		this.name = name;
-		this.depot = 0 ;
+		this.depot = 0;
 	}
 
 }
