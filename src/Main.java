@@ -14,7 +14,7 @@ public class Main {
 		String eingabe1 = br.readLine();
 
 		User sp1 = new User();
-		Spieler sp2 = new Spieler();
+		Spieler sp2 = new User();
 
 		switch (eingabe1) {
 		case "j":
@@ -24,7 +24,7 @@ public class Main {
 
 			System.out.println("Spieler 2 Name eingeben:");
 			String name2 = br.readLine();
-			sp2 = (User) sp2;
+
 			sp2.name = name2;
 			break;
 
@@ -36,21 +36,20 @@ public class Main {
 			System.out.println("Bitte Schwierigkeit eingeben(leicht/mittel/schwer)");
 			String schwierigkeit = br.readLine();
 
-			sp2 = (Computer) sp2;
-
-
+			Computer spc = new Computer();
+			boolean spctrue = true;
 			switch (schwierigkeit) {
 			case "leicht":
-				sp2.schwierigkeitsgrad = schwierigkeit;
+				spc.schwierigkeitsgrad = schwierigkeit;
 				break;
 
 			case "mittel":
-				sp2.schwierigkeitsgrad = schwierigkeit;
+				spc.schwierigkeitsgrad = schwierigkeit;
 
 				break;
 
 			case "schwer":
-				sp2.schwierigkeitsgrad = schwierigkeit;
+				spc.schwierigkeitsgrad = schwierigkeit;
 				break;
 			default:
 				System.out.println("Fehler");
