@@ -33,7 +33,6 @@ public class Main {
 
 			System.out.println("Spieler 2 Name eingeben:");
 			String name2 = br.readLine();
-
 			sp2.name = name2;
 			break;
 
@@ -92,67 +91,138 @@ public class Main {
 			board.sp2 = sp2;
 		}
 
-		// do {
-		// board.boardAnzeigen();
-		// if (spctrue) {
-		// // Computer Spielzug implementieren
-		// } else {
-		// System.out.printf("Your Move: ");
-		// String a = br.readLine();
-		// x = a.charAt(0);
-		//
-		// switch (x) {
-		// case 'a':
-		// result = game.makeMove(0);
-		// break;
-		//
-		// case 'b':
-		// result = game.makeMove(1);
-		// break;
-		//
-		// case 'c':
-		// result = game.makeMove(2);
-		// break;
-		//
-		// case 'd':
-		// result = game.makeMove(3);
-		// break;
-		//
-		// case 'e':
-		// result = game.makeMove(4);
-		// break;
-		//
-		// case 'f':
-		// result = game.makeMove(5);
-		// break;
-		//
-		// case 'x':
-		// case 'X':
-		// for (int i = 0; i < 6; i++) {
-		// game.computerSeeds += game.computerCells[i];
-		// game.playerSeeds += game.playerCells[i];
-		// }
-		// if (game.computerSeeds == 24 && game.playerSeeds == 24) {
-		// System.out.println("It is a draw!");
-		// }
-		// if (game.computerSeeds > 24) {
-		// System.out.println("Computer Won!");
-		// }
-		// if (game.playerSeeds > 24) {
-		// System.out.println("You won!");
-		// }
-		//
-		// break;
-		//
-		// default:
-		// System.out.print("Invalid Move\n");
-		// break;
-		// }
-		// }
-		//
-		// } while (x != 'x' && x != 'X' && result != 1);
-		//
-		//
+		//prüfen ob Sp vs Comp oder Sp vs SP
+		if (!spctrue) {
+			// Feldauswahl Eingabe Spieler vs Spieler
+			char y = '.';
+			do {
+				board.boardAnzeigen();
+				//Sp2 ist an der Reihe
+				//anDerReihe wird oben per Zufall gesetzt
+				//Methode kann nicht ausgelagert werden da es Großbuchstaben hat --> vllt noch ändern
+				if (!anDerReihe) {
+					System.out.printf("Zug angeben: ");
+					String a = br.readLine();
+					y = a.charAt(0);
+
+					switch (y) {
+					case 'A':
+						System.out.println("Feld A");
+						// Spielzug für Feld a machen
+						break;
+
+					case 'B':
+						System.out.println("Feld B");
+						// Spielzug für Feld b machen
+						break;
+
+					case 'C':
+						System.out.println("Feld C");
+						// Spielzug für Feld c machen
+						break;
+
+					case 'D':
+						System.out.println("Feld D");
+						// Spielzug für Feld d machen
+						break;
+
+					case 'E':
+						System.out.println("Feld E");
+						// Spielzug für Feld e machen
+						break;
+
+					case 'F':
+						System.out.println("Feld F");
+						// Spielzug für Feld f machen
+						break;
+
+					case 'x':
+					case 'X':
+						System.out.println("Spiel beendet");
+						break;
+
+					default:
+						System.out.print("Invalid Move\n");
+						break;
+					}
+
+				}
+				//Spieler 1 ist dran
+				//Methode siehe unten, BufferedReader, char und der boolean an der Reihe wird mitgegeben
+				else {
+					System.out.println("Spielzug Spieler 1");
+					feldWaehlen(br, y, anDerReihe);
+					// Boolean auf false setzen, dass Spieler 2 im nächsten Spielzug dran ist
+					anDerReihe = false;
+				}
+
+			} while (y != 'x' && y != 'X'); // && result != 1);
+
+		} else {
+
+			// Feldauswahl Eingabe Spieler vs Computer
+			char x = '.';
+			do {
+				board.boardAnzeigen();
+				if (spctrue) {
+					// Computer Spielzug implementieren
+					System.out.println("Computer macht Spielzug");
+					spctrue = false;
+				} else {
+					feldWaehlen(br, x, anDerReihe);
+				}
+
+			} while (x != 'x' && x != 'X'); // && result != 1);
+
+		}
+
+	}
+
+	public static void feldWaehlen(BufferedReader br, char i, boolean anDerReihe) throws IOException {
+		System.out.printf("Zug angeben: ");
+		String a = br.readLine();
+		i = a.charAt(0);
+
+		switch (i) {
+		case 'a':
+			System.out.println("Feld A");
+			// Spielzug für Feld a machen
+			break;
+
+		case 'b':
+			System.out.println("Feld B");
+			// Spielzug für Feld b machen
+			break;
+
+		case 'c':
+			System.out.println("Feld C");
+			// Spielzug für Feld c machen
+			break;
+
+		case 'd':
+			System.out.println("Feld D");
+			// Spielzug für Feld d machen
+			break;
+
+		case 'e':
+			System.out.println("Feld E");
+			// Spielzug für Feld e machen
+			break;
+
+		case 'f':
+			System.out.println("Feld F");
+			// Spielzug für Feld f machen
+			break;
+
+		case 'x':
+		case 'X':
+			System.out.println("Spiel beendet");
+			break;
+
+		default:
+			System.out.print("Invalid Move\n");
+			break;
+		}
 	}
 
 	public static boolean sp1Beginnt() {
