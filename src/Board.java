@@ -1,4 +1,5 @@
 
+
 public class Board {
 	int[] muldenUnten = new int[6];
 	int[] muldenOben = new int[6];
@@ -34,15 +35,84 @@ public class Board {
 
 	void boardAnzeigen() {
 
-		System.out.print("================="+sp2.name+"==================\n");
+		System.out.print("=================" + sp2.name + "==================\n");
 		System.out.print("A\tB\tC\tD\tE\tF\n");
-		System.out.print(muldenOben[0]+"\t"+muldenOben[1]+"\t"+muldenOben[2]+"\t"+muldenOben[3]+"\t"+muldenOben[4]+"\t"+muldenOben[5]+"\n");
+		System.out.print(muldenOben[0] + "\t" + muldenOben[1] + "\t" + muldenOben[2] + "\t" + muldenOben[3] + "\t"
+				+ muldenOben[4] + "\t" + muldenOben[5] + "\n");
 		System.out.print("-------------------------------------------\n");
-		System.out.print(muldenUnten[0]+"\t"+muldenUnten[1]+"\t"+muldenUnten[2]+"\t"+muldenUnten[3]+"\t"+muldenUnten[4]+"\t"+muldenUnten[5]+"\n");
+		System.out.print(muldenUnten[0] + "\t" + muldenUnten[1] + "\t" + muldenUnten[2] + "\t" + muldenUnten[3] + "\t"
+				+ muldenUnten[4] + "\t" + muldenUnten[5] + "\n");
 		System.out.print("a\tb\tc\td\te\tf\n");
-		System.out.print("===================="+sp1.name+"====================\n");
-		System.out.print(sp2.name+" Score: "+sp2.depot+"\n"+sp1.name+ " Score: "+sp1.depot+"\n\n");
+		System.out.print("====================" + sp1.name + "====================\n");
+		System.out.print(sp2.name + " Score: " + sp2.depot + "\n" + sp1.name + " Score: " + sp1.depot + "\n\n");
+
+	}
 
 
+	/**
+	 * Methode die den Sae Vorgang ausfuehrt.
+	 * @param startMulde Mulde die der Spieler zum saeen ausgewaehlt hat
+	 * @param sp1AnDerReihe zeigt ob Spieler 1 an der Reihe ist
+	 * @return gibt die letzte Mulde auf die eine Bohne fiel zurück
+	 */
+	public LetzteMulde saeen(int startMulde, boolean sp1AnDerReihe) {
+
+		int k = startMulde;
+		if (sp1AnDerReihe) {
+
+			int bohnen = muldenUnten[k];
+			muldenUnten[k] = 0;
+			LetzteMulde lm = new LetzteMulde();
+
+			while (bohnen > 0) {
+				while (k < 6 && bohnen > 0) {
+					if (startMulde != k) {
+						muldenUnten[k] += 1;
+						bohnen--;
+						lm.mulde = "Unten";
+					} else {
+
+					}
+					k++;
+				}
+				k--;
+				while (k >= 0 && bohnen > 0) {
+					muldenOben[k] += 1;
+					k--;
+					bohnen--;
+					lm.mulde = "Oben";
+				}
+				k++;
+			}
+			lm.index = k;
+			return lm;
+		} else {
+			int bohnen = muldenOben[k];
+			muldenOben[k] = 0;
+			LetzteMulde lm = new LetzteMulde();
+
+			while (bohnen > 0) {
+				while (k >= 0 && bohnen > 0) {
+					if (startMulde != k) {
+						muldenOben[k] += 1;
+						bohnen--;
+						lm.mulde = "Oben";
+					} else {
+
+					}
+					k--;
+				}
+				k++;
+				while (k < 6 && bohnen > 0) {
+					muldenUnten[k] += 1;
+					k++;
+					bohnen--;
+					lm.mulde = "Oben";
+				}
+				k--;
+			}
+			lm.index = k;
+			return lm;
+		}
 	}
 }

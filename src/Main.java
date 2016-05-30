@@ -70,12 +70,21 @@ public class Main {
 			System.out.println("Falsche Eingabe! Bitte Spiel neustarten");
 		}
 
+		// Board die spielenden Spieler bekannt machen
+		board.sp1 = sp1;
+		if (spctrue) {
+			board.sp2 = spc;
+		} else {
+			board.sp2 = sp2;
+		}
+
 		// Festlegen welcher Spieler beginnt
 		boolean anDerReihe = sp1Beginnt();
 
 		if (anDerReihe) {
 			System.out.println(sp1.name + " beginnt");
-		} else {
+			} else {
+
 			if (spctrue) {
 				System.out.println(spc.name + " beginnt");
 			} else {
@@ -91,49 +100,50 @@ public class Main {
 			board.sp2 = sp2;
 		}
 
-		//prüfen ob Sp vs Comp oder Sp vs SP
+		// prüfen ob Sp vs Comp oder Sp vs SP
 		if (!spctrue) {
 			// Feldauswahl Eingabe Spieler vs Spieler
 			char y = '.';
 			do {
 				board.boardAnzeigen();
-				//Sp2 ist an der Reihe
-				//anDerReihe wird oben per Zufall gesetzt
-				//Methode kann nicht ausgelagert werden da es Großbuchstaben hat --> vllt noch ändern
+				// Sp2 ist an der Reihe
+				// anDerReihe wird oben per Zufall gesetzt
+				// Methode kann nicht ausgelagert werden da es Großbuchstaben
+				// hat --> vllt noch ändern
 				if (!anDerReihe) {
-					System.out.printf("Zug angeben: ");
+					System.out.printf("Spielzug "+sp2.name+", bitte Zug angeben:");
 					String a = br.readLine();
 					y = a.charAt(0);
 
 					switch (y) {
 					case 'A':
-						System.out.println("Feld A");
-						// Spielzug für Feld a machen
+						board.saeen(0, anDerReihe);
+						anDerReihe=true;
 						break;
 
 					case 'B':
-						System.out.println("Feld B");
-						// Spielzug für Feld b machen
+						board.saeen(1, anDerReihe);
+						anDerReihe=true;
 						break;
 
 					case 'C':
-						System.out.println("Feld C");
-						// Spielzug für Feld c machen
+						board.saeen(2, anDerReihe);
+						anDerReihe=true;
 						break;
 
 					case 'D':
-						System.out.println("Feld D");
-						// Spielzug für Feld d machen
+						board.saeen(3, anDerReihe);
+						anDerReihe=true;
 						break;
 
 					case 'E':
-						System.out.println("Feld E");
-						// Spielzug für Feld e machen
+						board.saeen(4, anDerReihe);
+						anDerReihe=true;
 						break;
 
 					case 'F':
-						System.out.println("Feld F");
-						// Spielzug für Feld f machen
+						board.saeen(5, anDerReihe);
+						anDerReihe=true;
 						break;
 
 					case 'x':
@@ -147,12 +157,14 @@ public class Main {
 					}
 
 				}
-				//Spieler 1 ist dran
-				//Methode siehe unten, BufferedReader, char und der boolean an der Reihe wird mitgegeben
+				// Spieler 1 ist dran
+				// Methode siehe unten, BufferedReader, char und der boolean an
+				// der Reihe wird mitgegeben
 				else {
-					System.out.println("Spielzug Spieler 1");
+					System.out.println("Spielzug "+sp1.name+", bitte Zug angeben:");
 					feldWaehlen(br, y, anDerReihe);
-					// Boolean auf false setzen, dass Spieler 2 im nächsten Spielzug dran ist
+					// Boolean auf false setzen, dass Spieler 2 im nächsten
+					// Spielzug dran ist
 					anDerReihe = false;
 				}
 
