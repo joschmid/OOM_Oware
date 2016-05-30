@@ -164,10 +164,10 @@ public class Main {
 			char x = '.';
 			do {
 				board.boardAnzeigen();
-				if (spctrue) {
+				if (!anDerReihe) {
 					// Computer Spielzug implementieren
 					System.out.println("Computer macht Spielzug");
-					spctrue = false;
+					anDerReihe = true;
 				} else {
 					feldWaehlen(br, x, anDerReihe);
 				}
@@ -185,32 +185,32 @@ public class Main {
 
 		switch (i) {
 		case 'a':
-			System.out.println("Feld A");
+			System.out.println("Feld a");
 			// Spielzug für Feld a machen
 			break;
 
 		case 'b':
-			System.out.println("Feld B");
+			System.out.println("Feld b");
 			// Spielzug für Feld b machen
 			break;
 
 		case 'c':
-			System.out.println("Feld C");
+			System.out.println("Feld c");
 			// Spielzug für Feld c machen
 			break;
 
 		case 'd':
-			System.out.println("Feld D");
+			System.out.println("Feld d");
 			// Spielzug für Feld d machen
 			break;
 
 		case 'e':
-			System.out.println("Feld E");
+			System.out.println("Feld e");
 			// Spielzug für Feld e machen
 			break;
 
 		case 'f':
-			System.out.println("Feld F");
+			System.out.println("Feld f");
 			// Spielzug für Feld f machen
 			break;
 
