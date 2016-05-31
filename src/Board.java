@@ -127,6 +127,7 @@ public class Board {
  */
 	public int feldwaehlenUser(boolean anDerReihe, int index) {
 		Scanner scanner = new Scanner(System.in);
+		BufferedReader
 		if (anDerReihe) {
 			if (0 <= index && index <= 5) {
 				if (muldenOben[0] + muldenOben[1] + muldenOben[2] + muldenOben[3] + muldenOben[4]
@@ -137,6 +138,9 @@ public class Board {
 					} else {
 						System.out.println("Fehler ungültige Eingabe: Gegner hat keine Steine mehr");
 						System.out.println("bitte neue Eingabe:");
+
+						Main.br
+
 						index = buchstabeZuZahl(scanner.nextLine());
 						feldwaehlenUser(anDerReihe, index);
 					}
