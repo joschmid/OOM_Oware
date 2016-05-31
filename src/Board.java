@@ -1,4 +1,4 @@
-
+import java.util.Scanner;
 
 public class Board {
 	int[] muldenUnten = new int[6];
@@ -48,11 +48,13 @@ public class Board {
 
 	}
 
-
 	/**
 	 * Methode die den Sae Vorgang ausfuehrt.
-	 * @param startMulde Mulde die der Spieler zum saeen ausgewaehlt hat
-	 * @param sp1AnDerReihe zeigt ob Spieler 1 an der Reihe ist
+	 *
+	 * @param startMulde
+	 *            Mulde die der Spieler zum saeen ausgewaehlt hat
+	 * @param sp1AnDerReihe
+	 *            zeigt ob Spieler 1 an der Reihe ist
 	 * @return gibt die letzte Mulde auf die eine Bohne fiel zurück
 	 */
 	public LetzteMulde saeen(int startMulde, boolean sp1AnDerReihe) {
@@ -114,5 +116,69 @@ public class Board {
 			lm.index = k;
 			return lm;
 		}
+	}
+
+	public int feldwaehlenUser(boolean anDerReihe, int index) {
+		Scanner scanner = new Scanner(System.in);
+		if (anDerReihe) {
+			if (0 <= index && index <= 5) {
+				if (muldenOben[0] + muldenOben[1] + muldenOben[2] + muldenOben[3] + muldenOben[4]
+						+ muldenOben[5] == 0) {
+					if (index + muldenUnten[index] >= 6) {
+						return index;
+					} else {
+						System.out.println("Fehler ungültige Eingabe: Gegner hat keine Steine mehr");
+						System.out.println("bitte neue Eingabe:");
+						index = scanner.nextInt();
+						feldwaehlenUser(anDerReihe, index);
+					}
+				} else {
+					if (muldenUnten[index] > 0) {
+						return index;
+					} else {
+						System.out.println("Fehler ungültige Eingabe: Ausgewähltes Feld ist leer");
+						System.out.println("bitte neue Eingabe:");
+						index = scanner.nextInt();
+						feldwaehlenUser(anDerReihe, index);
+					}
+				}
+			} else {
+				System.out.println("Fehler ungültige Eingabe: Buchstabe liegt nicht im eigenen Spielfeld");
+				System.out.println("bitte neue Eingabe:");
+				index = scanner.nextInt();
+				feldwaehlenUser(anDerReihe, index);
+
+			}
+
+		}else{
+			if(0<=index&&index<=5){
+				if(muldenUnten[0]+muldenUnten[1]+muldenUnten[2]+muldenUnten[3]+muldenUnten[4]+muldenUnten[5]==0){
+					if(index+muldenOben[index]>=6){
+						return index;
+					}else{
+						System.out.println("Fehler ungültige Eingabe: Gegner hat keine Steine mehr");
+						System.out.println("bitte neue Eingabe:");
+						index = scanner.nextInt();
+						feldwaehlenUser(anDerReihe, index);
+					}
+				}else{
+					if(muldenOben[index]>0){
+						return index;
+					}else{
+						System.out.println("Fehler ungültige Eingabe: Ausgewähltes Feld ist leer");
+						System.out.println("bitte neue Eingabe:");
+						index = scanner.nextInt();
+						feldwaehlenUser(anDerReihe, index);
+					}
+				}
+			}else{
+				System.out.println("Fehler ungültige Eingabe: Buchstabe liegt nicht im eigenen Spielfeld");
+				System.out.println("bitte neue Eingabe:");
+				index = scanner.nextInt();
+				feldwaehlenUser(anDerReihe, index);
+			}
+		}
+		scanner.close();
+		return index;
 	}
 }

@@ -83,7 +83,7 @@ public class Main {
 
 		if (anDerReihe) {
 			System.out.println(sp1.name + " beginnt");
-			} else {
+		} else {
 
 			if (spctrue) {
 				System.out.println(spc.name + " beginnt");
@@ -111,58 +111,17 @@ public class Main {
 				// Methode kann nicht ausgelagert werden da es Großbuchstaben
 				// hat --> vllt noch ändern
 				if (!anDerReihe) {
-					System.out.printf("Spielzug "+sp2.name+", bitte Zug angeben:");
-					String a = br.readLine();
-					y = a.charAt(0);
-
-					switch (y) {
-					case 'A':
-						board.saeen(0, anDerReihe);
-						anDerReihe=true;
-						break;
-
-					case 'B':
-						board.saeen(1, anDerReihe);
-						anDerReihe=true;
-						break;
-
-					case 'C':
-						board.saeen(2, anDerReihe);
-						anDerReihe=true;
-						break;
-
-					case 'D':
-						board.saeen(3, anDerReihe);
-						anDerReihe=true;
-						break;
-
-					case 'E':
-						board.saeen(4, anDerReihe);
-						anDerReihe=true;
-						break;
-
-					case 'F':
-						board.saeen(5, anDerReihe);
-						anDerReihe=true;
-						break;
-
-					case 'x':
-					case 'X':
-						System.out.println("Spiel beendet");
-						break;
-
-					default:
-						System.out.print("Invalid Move\n");
-						break;
-					}
+					System.out.printf("Spielzug " + sp2.name + ", bitte Zug angeben:");
+					konsolenEingabe(br, y, anDerReihe, board);
+					anDerReihe = true;
 
 				}
 				// Spieler 1 ist dran
 				// Methode siehe unten, BufferedReader, char und der boolean an
 				// der Reihe wird mitgegeben
 				else {
-					System.out.println("Spielzug "+sp1.name+", bitte Zug angeben:");
-					feldWaehlen(br, y, anDerReihe);
+					System.out.println("Spielzug " + sp1.name + ", bitte Zug angeben:");
+					konsolenEingabe(br, y, anDerReihe, board);
 					// Boolean auf false setzen, dass Spieler 2 im nächsten
 					// Spielzug dran ist
 					anDerReihe = false;
@@ -181,7 +140,7 @@ public class Main {
 					System.out.println("Computer macht Spielzug");
 					anDerReihe = true;
 				} else {
-					feldWaehlen(br, x, anDerReihe);
+					konsolenEingabe(br, x, anDerReihe, board);
 				}
 
 			} while (x != 'x' && x != 'X'); // && result != 1);
@@ -190,50 +149,88 @@ public class Main {
 
 	}
 
-	public static void feldWaehlen(BufferedReader br, char i, boolean anDerReihe) throws IOException {
+	public static Board konsolenEingabe(BufferedReader br, char i, boolean anDerReihe, Board board) throws IOException {
 		System.out.printf("Zug angeben: ");
 		String a = br.readLine();
 		i = a.charAt(0);
 
 		switch (i) {
 		case 'a':
-			System.out.println("Feld a");
-			// Spielzug für Feld a machen
-			break;
-
+		case 'A':
+			board.saeen(0, anDerReihe);
+			if (anDerReihe) {
+				anDerReihe = false;
+			} else {
+				anDerReihe = true;
+			}
+			// Spielzug für a/A machen
+			System.out.println("Feld " + i);
+			return board;
 		case 'b':
-			System.out.println("Feld b");
-			// Spielzug für Feld b machen
-			break;
-
+		case 'B':
+			board.saeen(1, anDerReihe);
+			if (anDerReihe) {
+				anDerReihe = false;
+			} else {
+				anDerReihe = true;
+			}
+			// Spielzug für b/B machen
+			System.out.println("Feld " + i);
+			return board;
 		case 'c':
-			System.out.println("Feld c");
-			// Spielzug für Feld c machen
-			break;
-
+		case 'C':
+			board.saeen(2, anDerReihe);
+			if (anDerReihe) {
+				anDerReihe = false;
+			} else {
+				anDerReihe = true;
+			}
+			// Spielzug für c/C machen
+			System.out.println("Feld " + i);
+			return board;
 		case 'd':
-			System.out.println("Feld d");
-			// Spielzug für Feld d machen
-			break;
-
+		case 'D':
+			board.saeen(3, anDerReihe);
+			if (anDerReihe) {
+				anDerReihe = false;
+			} else {
+				anDerReihe = true;
+			}
+			// Spielzug für d/D machen
+			System.out.println("Feld " + i);
+			return board;
 		case 'e':
-			System.out.println("Feld e");
-			// Spielzug für Feld e machen
-			break;
-
+		case 'E':
+			board.saeen(4, anDerReihe);
+			if (anDerReihe) {
+				anDerReihe = false;
+			} else {
+				anDerReihe = true;
+			}
+			// Spielzug für e/E machen
+			System.out.println("Feld " + i);
+			return board;
 		case 'f':
-			System.out.println("Feld f");
-			// Spielzug für Feld f machen
-			break;
+		case 'F':
+			board.saeen(5, anDerReihe);
+			if (anDerReihe) {
+				anDerReihe = false;
+			} else {
+				anDerReihe = true;
+			}
+			// Spielzug für f/F machen
+			System.out.println("Feld " + i);
+			return board;
 
 		case 'x':
 		case 'X':
 			System.out.println("Spiel beendet");
-			break;
+			return board;
 
 		default:
 			System.out.print("Invalid Move\n");
-			break;
+			// Feldwählen aufrufen
+			return board;
 		}
 	}
 
