@@ -1,4 +1,6 @@
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class Board {
 	int[] muldenUnten = new int[6];
@@ -118,48 +120,44 @@ public class Board {
 		}
 	}
 
-
-/**
- * Methode die überprüft ob ein vom Spieler (!) gewähltes Feld zulässig ist
- * @param anDerReihe gibt an ob Spieler 1 an der Reihe ist
- * @param index vom Spieler gewähltes Feld
- * @return gibt zulässigen Index zurück
- */
-	public int feldwaehlenUser(boolean anDerReihe, int index) {
-		Scanner scanner = new Scanner(System.in);
-		BufferedReader
+	/**
+	 * Methode die überprüft ob ein vom Spieler (!) gewähltes Feld zulässig ist
+	 *
+	 * @param anDerReihe
+	 *            gibt an ob Spieler 1 an der Reihe ist
+	 * @param index
+	 *            vom Spieler gewähltes Feld
+	 * @return gibt zulässigen Index zurück
+	 */
+	public int feldwaehlenUser(boolean anDerReihe, int index) throws IOException {
+		BufferedReader br2 = new BufferedReader(new InputStreamReader(System.in));
 		if (anDerReihe) {
 			if (0 <= index && index <= 5) {
 				if (muldenOben[0] + muldenOben[1] + muldenOben[2] + muldenOben[3] + muldenOben[4]
 						+ muldenOben[5] == 0) {
 					if (index + muldenUnten[index] >= 6) {
-						scanner.close();
 						return index;
 					} else {
 						System.out.println("Fehler ungültige Eingabe: Gegner hat keine Steine mehr");
 						System.out.println("bitte neue Eingabe:");
-
-						Main.br
-
-						index = buchstabeZuZahl(scanner.nextLine());
-						feldwaehlenUser(anDerReihe, index);
+						index = buchstabeZuZahl(br2.readLine());
+						return feldwaehlenUser(anDerReihe, index);
 					}
 				} else {
 					if (muldenUnten[index] > 0) {
-						scanner.close();
 						return index;
 					} else {
 						System.out.println("Fehler ungültige Eingabe: Ausgewähltes Feld ist leer");
 						System.out.println("bitte neue Eingabe:");
-						index = buchstabeZuZahl(scanner.nextLine());
-						feldwaehlenUser(anDerReihe, index);
+						index = buchstabeZuZahl(br2.readLine());
+						return feldwaehlenUser(anDerReihe, index);
 					}
 				}
 			} else {
 				System.out.println("Fehler ungültige Eingabe: Buchstabe liegt nicht im eigenen Spielfeld");
 				System.out.println("bitte neue Eingabe:");
-				index = buchstabeZuZahl(scanner.nextLine());
-				feldwaehlenUser(anDerReihe, index);
+				index = buchstabeZuZahl(br2.readLine());
+				return feldwaehlenUser(anDerReihe, index);
 
 			}
 
@@ -168,34 +166,31 @@ public class Board {
 				if (muldenUnten[0] + muldenUnten[1] + muldenUnten[2] + muldenUnten[3] + muldenUnten[4]
 						+ muldenUnten[5] == 0) {
 					if (index + muldenOben[index] >= 6) {
-						scanner.close();
 						return index;
 					} else {
 						System.out.println("Fehler ungültige Eingabe: Gegner hat keine Steine mehr");
 						System.out.println("bitte neue Eingabe:");
-						index = buchstabeZuZahl(scanner.nextLine());
-						feldwaehlenUser(anDerReihe, index);
+						index = buchstabeZuZahl(br2.readLine());
+						return feldwaehlenUser(anDerReihe, index);
 					}
 				} else {
 					if (muldenOben[index] > 0) {
-						scanner.close();
 						return index;
 					} else {
 						System.out.println("Fehler ungültige Eingabe: Ausgewähltes Feld ist leer");
 						System.out.println("bitte neue Eingabe:");
-						index = buchstabeZuZahl(scanner.nextLine());
-						feldwaehlenUser(anDerReihe, index);
+						index = buchstabeZuZahl(br2.readLine());
+						return feldwaehlenUser(anDerReihe, index);
 					}
 				}
 			} else {
 				System.out.println("Fehler ungültige Eingabe: Buchstabe liegt nicht im eigenen Spielfeld");
 				System.out.println("bitte neue Eingabe:");
-				index = buchstabeZuZahl(scanner.nextLine());
-				feldwaehlenUser(anDerReihe, index);
+				index = buchstabeZuZahl(br2.readLine());
+				return feldwaehlenUser(anDerReihe, index);
 			}
 		}
-		scanner.close();
-		return index;
+
 	}
 
 	/**
@@ -237,5 +232,17 @@ public class Board {
 			zahl = -8;
 			return zahl;
 		}
+	}
+
+	// Feldwählen Comtputer //---->Parameter bestimmen, Schwierigkeitsgrad
+	// beachten,
+	// KI hier!
+	public int feldwaehlenComputer() {
+		return 1;
+	}
+
+	// Hier Fangen-Methode
+	public void fangen(LetzteMulde lm) {
+
 	}
 }

@@ -204,7 +204,7 @@ public class Main {
 			return board;
 
 		default:
-			System.out.print("Invalid Move\n");
+			board.saeen(board.feldwaehlenUser(anDerReihe, -7), anDerReihe);
 			// Feldwählen aufrufen
 			return board;
 		}
@@ -217,6 +217,14 @@ public class Main {
 		} else {
 			return false;
 		}
+
+	}
+	//Spiel Beenden
+	public void spielBeenden(){
+
+	}
+	//Status abfragen
+	public void statusAbfragen(){
 
 	}
 
