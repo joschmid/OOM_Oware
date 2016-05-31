@@ -111,7 +111,7 @@ public class Board {
 					muldenUnten[k] += 1;
 					k++;
 					bohnen--;
-					lm.mulde = "Oben";
+					lm.mulde = "Unten";
 				}
 				k--;
 			}
@@ -242,7 +242,28 @@ public class Board {
 	}
 
 	// Hier Fangen-Methode
-	public void fangen(LetzteMulde lm) {
+	public void fangen(LetzteMulde lm,boolean anDerReihe) {
+		int index = lm.index;
+		if(anDerReihe){
+			if(lm.mulde.equals("Oben")&&((muldenOben[index]==2)||(muldenOben[index]==3))){
+				while((0<=index&&index<=5)&&((muldenOben[index]==2)||(muldenOben[index]==3))){
+					sp1.depot+=muldenOben[index];
+					muldenOben[index]=0;
+					index++;
+				}
+			}
+
+
+		}else{
+			if(lm.mulde.equals("Unten")&&((muldenUnten[index]==2)||(muldenUnten[index]==3))){
+				while((0<=index&&index<=5)&&((muldenUnten[index]==2)||(muldenUnten[index]==3))){
+					sp2.depot+=muldenUnten[index];
+					muldenUnten[index]=0;
+					index--;
+				}
+			}
+
+		}
 
 	}
 }
