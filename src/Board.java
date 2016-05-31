@@ -266,4 +266,18 @@ public class Board {
 		}
 
 	}
+	public int summeOben(){
+		int ergebnis = 0;
+		for (int i : muldenOben) {
+			ergebnis+=i;
+		}
+		return ergebnis;
+	}
+	public int summeUnten(){
+		int ergebnis =0;
+		for (int i : muldenUnten) {
+			ergebnis+=i;
+		}
+		return ergebnis;
+	}
 }

@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class Main {
+	static int keineDepotAenderung = 0;
 
 	public static void main(String[] args) throws IOException {
 
@@ -104,20 +105,32 @@ public class Main {
 			board.sp2 = sp2;
 		}
 
+
+		board.boardAnzeigen();
 		// prüfen ob Sp vs Comp oder Sp vs SP
 		if (!spctrue) {
 			// Feldauswahl Eingabe Spieler vs Spieler
 			char y = '.';
+
+
+
+			// Spielstart
 			do {
-				board.boardAnzeigen();
+
 				// Sp2 ist an der Reihe
 				// anDerReihe wird oben per Zufall gesetzt
 				// Methode kann nicht ausgelagert werden da es Großbuchstaben
 				// hat --> vllt noch ändern
 				if (!anDerReihe) {
 					System.out.printf("Spielzug " + sp2.name + ", bitte Zug angeben:");
+					int tempDepot = sp2.depot;
 					konsolenEingabe(br, y, anDerReihe, board);
 					anDerReihe = true;
+					if (sp2.depot == tempDepot) {
+						keineDepotAenderung++;
+					} else {
+						keineDepotAenderung = 0;
+					}
 
 				}
 				// Spieler 1 ist dran
@@ -125,20 +138,27 @@ public class Main {
 				// der Reihe wird mitgegeben
 				else {
 					System.out.println("Spielzug " + sp1.name + ", bitte Zug angeben:");
+					int tempDepot = sp1.depot;
 					konsolenEingabe(br, y, anDerReihe, board);
 					// Boolean auf false setzen, dass Spieler 2 im nächsten
 					// Spielzug dran ist
 					anDerReihe = false;
+					if (sp1.depot == tempDepot) {
+						keineDepotAenderung++;
+					} else {
+						keineDepotAenderung = 0;
+					}
 				}
-
-			} while (y != 'x' && y != 'X'); // && result != 1);
+				board.boardAnzeigen();
+			} while (!statusAbfragen(board,keineDepotAenderung,br));
+			spielBeenden(board);
 
 		} else {
 
 			// Feldauswahl Eingabe Spieler vs Computer
 			char x = '.';
 			do {
-				board.boardAnzeigen();
+
 				if (!anDerReihe) {
 					// Computer Spielzug implementieren
 					System.out.println("Computer macht Spielzug");
@@ -146,9 +166,9 @@ public class Main {
 				} else {
 					konsolenEingabe(br, x, anDerReihe, board);
 				}
-
-			} while (x != 'x' && x != 'X'); // && result != 1);
-
+				board.boardAnzeigen();
+			} while (!statusAbfragen(board,keineDepotAenderung,br));
+			spielBeenden(board);
 		}
 
 	}
@@ -225,12 +245,60 @@ public class Main {
 	}
 
 	// Spiel Beenden
-	public void spielBeenden() {
-
+	public static void spielBeenden(Board board) {
+		board.sp1.depot+=board.summeUnten();
+		board.sp2.depot+=board.summeOben();
+		board.boardAnzeigen();
+		if(board.sp1.depot>board.sp2.depot){
+			System.out.println("Gewinner: "+board.sp1.name);
+		}else if(board.sp1.depot<board.sp2.depot){
+			System.out.println("Gewinner: "+board.sp2.name);
+		}else{
+			System.out.println("Unentschieden!!!");
+		}
+		System.out.println("Depot "+board.sp1.name+": "+board.sp1.depot);
+		System.out.println("Depot "+board.sp2.name+": "+board.sp2.depot);
+		System.exit(0);
 	}
 
 	// Status abfragen
-	public void statusAbfragen() {
+	public static boolean statusAbfragen(Board board, int keineDepotAenderung, BufferedReader br) throws IOException {
+		if (board.sp1.depot + board.sp2.depot == 48) {
+			return true;
+		} else if (keineDepotAenderung == 2) {
+
+			return abbruch(br);
+
+		} else if (((board.summeOben() == 0) && (0 + board.muldenOben[0] >= 6) && (1 + board.muldenOben[1] >= 6)
+				&& (2 + board.muldenOben[2] >= 6) && (3 + board.muldenOben[3] >= 6) && (4 + board.muldenOben[4] >= 6)
+				&& (5 + board.muldenOben[5] >= 6))) {
+			return true;
+		} else if (((board.summeUnten() == 0) && (0 + board.muldenUnten[0] >= 6) && (1 + board.muldenUnten[1] >= 6)
+				&& (2 + board.muldenUnten[2] >= 6) && (3 + board.muldenUnten[3] >= 6) && (4 + board.muldenUnten[4] >= 6)
+				&& (5 + board.muldenUnten[5] >= 6))) {
+			return true;
+		}
+		return false;
+
+	}
+
+	// nach Abbruch fragen
+	public static boolean abbruch(BufferedReader br) throws IOException {
+		System.out.println("Seit 10 Spielzügen keine Depotveränderung, Spiel beenden? (j/n)");
+		String eingabe = br.readLine();
+		switch (eingabe) {
+		case "j":
+		case "J":
+			return true;
+
+		case "n":
+		case "N":
+			keineDepotAenderung=0;
+			return false;
+		default:
+			System.out.println("Bitte erneut eingeben");
+			return abbruch(br);
+		}
 
 	}
 
