@@ -118,6 +118,13 @@ public class Board {
 		}
 	}
 
+
+/**
+ * Methode die überprüft ob ein vom Spieler (!) gewähltes Feld zulässig ist
+ * @param anDerReihe gibt an ob Spieler 1 an der Reihe ist
+ * @param index vom Spieler gewähltes Feld
+ * @return gibt zulässigen Index zurück
+ */
 	public int feldwaehlenUser(boolean anDerReihe, int index) {
 		Scanner scanner = new Scanner(System.in);
 		if (anDerReihe) {
@@ -125,60 +132,106 @@ public class Board {
 				if (muldenOben[0] + muldenOben[1] + muldenOben[2] + muldenOben[3] + muldenOben[4]
 						+ muldenOben[5] == 0) {
 					if (index + muldenUnten[index] >= 6) {
+						scanner.close();
 						return index;
 					} else {
 						System.out.println("Fehler ungültige Eingabe: Gegner hat keine Steine mehr");
 						System.out.println("bitte neue Eingabe:");
-						index = scanner.nextInt();
+						index = buchstabeZuZahl(scanner.nextLine());
 						feldwaehlenUser(anDerReihe, index);
 					}
 				} else {
 					if (muldenUnten[index] > 0) {
+						scanner.close();
 						return index;
 					} else {
 						System.out.println("Fehler ungültige Eingabe: Ausgewähltes Feld ist leer");
 						System.out.println("bitte neue Eingabe:");
-						index = scanner.nextInt();
+						index = buchstabeZuZahl(scanner.nextLine());
 						feldwaehlenUser(anDerReihe, index);
 					}
 				}
 			} else {
 				System.out.println("Fehler ungültige Eingabe: Buchstabe liegt nicht im eigenen Spielfeld");
 				System.out.println("bitte neue Eingabe:");
-				index = scanner.nextInt();
+				index = buchstabeZuZahl(scanner.nextLine());
 				feldwaehlenUser(anDerReihe, index);
 
 			}
 
-		}else{
-			if(0<=index&&index<=5){
-				if(muldenUnten[0]+muldenUnten[1]+muldenUnten[2]+muldenUnten[3]+muldenUnten[4]+muldenUnten[5]==0){
-					if(index+muldenOben[index]>=6){
+		} else {
+			if (0 <= index && index <= 5) {
+				if (muldenUnten[0] + muldenUnten[1] + muldenUnten[2] + muldenUnten[3] + muldenUnten[4]
+						+ muldenUnten[5] == 0) {
+					if (index + muldenOben[index] >= 6) {
+						scanner.close();
 						return index;
-					}else{
+					} else {
 						System.out.println("Fehler ungültige Eingabe: Gegner hat keine Steine mehr");
 						System.out.println("bitte neue Eingabe:");
-						index = scanner.nextInt();
+						index = buchstabeZuZahl(scanner.nextLine());
 						feldwaehlenUser(anDerReihe, index);
 					}
-				}else{
-					if(muldenOben[index]>0){
+				} else {
+					if (muldenOben[index] > 0) {
+						scanner.close();
 						return index;
-					}else{
+					} else {
 						System.out.println("Fehler ungültige Eingabe: Ausgewähltes Feld ist leer");
 						System.out.println("bitte neue Eingabe:");
-						index = scanner.nextInt();
+						index = buchstabeZuZahl(scanner.nextLine());
 						feldwaehlenUser(anDerReihe, index);
 					}
 				}
-			}else{
+			} else {
 				System.out.println("Fehler ungültige Eingabe: Buchstabe liegt nicht im eigenen Spielfeld");
 				System.out.println("bitte neue Eingabe:");
-				index = scanner.nextInt();
+				index = buchstabeZuZahl(scanner.nextLine());
 				feldwaehlenUser(anDerReihe, index);
 			}
 		}
 		scanner.close();
 		return index;
+	}
+
+	/**
+	 * Methode die den Buchstaben a-f und A-F in entsprechende Zahlen umwandelt.
+	 *
+	 * @param buchstabe
+	 *            Buchstabe der umgewandelt werden soll
+	 * @return zahl die sich aus dem Buchstaben ergibt
+	 */
+	public int buchstabeZuZahl(String buchstabe) {
+		int zahl;
+
+		switch (buchstabe) {
+		case "a":
+		case "A":
+			zahl = 0;
+			return zahl;
+		case "b":
+		case "B":
+			zahl = 1;
+			return zahl;
+		case "c":
+		case "C":
+			zahl = 2;
+			return zahl;
+		case "d":
+		case "D":
+			zahl = 3;
+			return zahl;
+		case "e":
+		case "E":
+			zahl = 4;
+			return zahl;
+		case "f":
+		case "F":
+			zahl = 5;
+			return zahl;
+		default:
+			zahl = -8;
+			return zahl;
+		}
 	}
 }

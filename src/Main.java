@@ -150,74 +150,50 @@ public class Main {
 	}
 
 	public static Board konsolenEingabe(BufferedReader br, char i, boolean anDerReihe, Board board) throws IOException {
-		System.out.printf("Zug angeben: ");
+//		System.out.printf("Zug angeben: ");
 		String a = br.readLine();
 		i = a.charAt(0);
 
 		switch (i) {
 		case 'a':
 		case 'A':
-			board.saeen(0, anDerReihe);
-			if (anDerReihe) {
-				anDerReihe = false;
-			} else {
-				anDerReihe = true;
-			}
+			board.saeen(board.feldwaehlenUser(anDerReihe, 0), anDerReihe);
+
 			// Spielzug für a/A machen
 			System.out.println("Feld " + i);
 			return board;
 		case 'b':
 		case 'B':
-			board.saeen(1, anDerReihe);
-			if (anDerReihe) {
-				anDerReihe = false;
-			} else {
-				anDerReihe = true;
-			}
+			board.saeen(board.feldwaehlenUser(anDerReihe, 1), anDerReihe);
+
 			// Spielzug für b/B machen
 			System.out.println("Feld " + i);
 			return board;
 		case 'c':
 		case 'C':
-			board.saeen(2, anDerReihe);
-			if (anDerReihe) {
-				anDerReihe = false;
-			} else {
-				anDerReihe = true;
-			}
+			board.saeen(board.feldwaehlenUser(anDerReihe, 2), anDerReihe);
+
 			// Spielzug für c/C machen
 			System.out.println("Feld " + i);
 			return board;
 		case 'd':
 		case 'D':
-			board.saeen(3, anDerReihe);
-			if (anDerReihe) {
-				anDerReihe = false;
-			} else {
-				anDerReihe = true;
-			}
+			board.saeen(board.feldwaehlenUser(anDerReihe, 3), anDerReihe);
+
 			// Spielzug für d/D machen
 			System.out.println("Feld " + i);
 			return board;
 		case 'e':
 		case 'E':
-			board.saeen(4, anDerReihe);
-			if (anDerReihe) {
-				anDerReihe = false;
-			} else {
-				anDerReihe = true;
-			}
+			board.saeen(board.feldwaehlenUser(anDerReihe, 4), anDerReihe);
+
 			// Spielzug für e/E machen
 			System.out.println("Feld " + i);
 			return board;
 		case 'f':
 		case 'F':
-			board.saeen(5, anDerReihe);
-			if (anDerReihe) {
-				anDerReihe = false;
-			} else {
-				anDerReihe = true;
-			}
+			board.saeen(board.feldwaehlenUser(anDerReihe, 5), anDerReihe);
+
 			// Spielzug für f/F machen
 			System.out.println("Feld " + i);
 			return board;
