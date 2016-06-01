@@ -237,9 +237,10 @@ public class Board {
 	// Feldwählen Comtputer //---->Parameter bestimmen, Schwierigkeitsgrad
 	// beachten,
 	// KI hier!
-	public int feldwaehlenComputer() {
-		return 1;
-	}
+//	public int feldwaehlenComputer(Board board) {
+//		switch(board.sp2.schwierigkeitsgrad)
+//		return 1;
+//	}
 
 	// Hier Fangen-Methode
 	public void fangen(LetzteMulde lm,boolean anDerReihe) {

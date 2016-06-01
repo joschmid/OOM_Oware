@@ -105,14 +105,11 @@ public class Main {
 			board.sp2 = sp2;
 		}
 
-
 		board.boardAnzeigen();
 		// prüfen ob Sp vs Comp oder Sp vs SP
 		if (!spctrue) {
 			// Feldauswahl Eingabe Spieler vs Spieler
 			char y = '.';
-
-
 
 			// Spielstart
 			do {
@@ -150,7 +147,7 @@ public class Main {
 					}
 				}
 				board.boardAnzeigen();
-			} while (!statusAbfragen(board,keineDepotAenderung,br));
+			} while (!statusAbfragen(board, keineDepotAenderung, br, anDerReihe));
 			spielBeenden(board);
 
 		} else {
@@ -167,7 +164,7 @@ public class Main {
 					konsolenEingabe(br, x, anDerReihe, board);
 				}
 				board.boardAnzeigen();
-			} while (!statusAbfragen(board,keineDepotAenderung,br));
+			} while (!statusAbfragen(board, keineDepotAenderung, br, anDerReihe));
 			spielBeenden(board);
 		}
 
@@ -246,27 +243,31 @@ public class Main {
 
 	// Spiel Beenden
 	public static void spielBeenden(Board board) {
-		board.sp1.depot+=board.summeUnten();
-		board.sp2.depot+=board.summeOben();
+		board.sp1.depot += board.summeUnten();
+		board.sp2.depot += board.summeOben();
 		board.boardAnzeigen();
-		if(board.sp1.depot>board.sp2.depot){
-			System.out.println("Gewinner: "+board.sp1.name);
-		}else if(board.sp1.depot<board.sp2.depot){
-			System.out.println("Gewinner: "+board.sp2.name);
-		}else{
+		if (board.sp1.depot > board.sp2.depot) {
+			System.out.println("Gewinner: " + board.sp1.name);
+		} else if (board.sp1.depot < board.sp2.depot) {
+			System.out.println("Gewinner: " + board.sp2.name);
+		} else {
 			System.out.println("Unentschieden!!!");
 		}
-		System.out.println("Depot "+board.sp1.name+": "+board.sp1.depot);
-		System.out.println("Depot "+board.sp2.name+": "+board.sp2.depot);
+		System.out.println("Depot " + board.sp1.name + ": " + board.sp1.depot);
+		System.out.println("Depot " + board.sp2.name + ": " + board.sp2.depot);
 		System.exit(0);
 	}
 
 	// Status abfragen
-	public static boolean statusAbfragen(Board board, int keineDepotAenderung, BufferedReader br) throws IOException {
+	public static boolean statusAbfragen(Board board, int keineDepotAenderung, BufferedReader br, boolean anDerReihe)
+			throws IOException {
 		if (board.sp1.depot + board.sp2.depot == 48) {
 			return true;
-		} else if (keineDepotAenderung == 2) {
-
+		} else if (anDerReihe && (board.summeUnten() == 0)) {
+			return true;
+		} else if (!anDerReihe && (board.summeOben() == 0)) {
+			return true;
+		} else if (keineDepotAenderung == 10) {
 			return abbruch(br);
 
 		} else if (((board.summeOben() == 0) && (0 + board.muldenOben[0] >= 6) && (1 + board.muldenOben[1] >= 6)
@@ -293,7 +294,7 @@ public class Main {
 
 		case "n":
 		case "N":
-			keineDepotAenderung=0;
+			keineDepotAenderung = 0;
 			return false;
 		default:
 			System.out.println("Bitte erneut eingeben");
