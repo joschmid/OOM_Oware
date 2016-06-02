@@ -240,7 +240,37 @@ public class Board {
 //		return 1;
 //	}
 
-	// Hier Fangen-Methode
+	public int angriffstaktik(){
+		int gewinn=0;
+		int index = 0;
+		for (int i : muldenOben) {
+			Board boardKopie = this;
+			int bohnenAnzahlVorher = muldenOben[i];
+			boardKopie.fangen(boardKopie.saeen(i, false), false);
+			if(muldenOben[i]-bohnenAnzahlVorher>gewinn){
+				gewinn = muldenOben[i]-bohnenAnzahlVorher;
+				index=i;
+			}
+		}
+		return index;
+	}
+
+	public int defensivtakitk(){
+		int gewinn=0;
+		int index = 0;
+		for (int i : muldenUnten) {
+			Board boardKopie = this;
+			int bohnenAnzahlVorher = muldenUnten[i];
+			boardKopie.fangen(boardKopie.saeen(i, false), false);
+			if(muldenUnten[i]-bohnenAnzahlVorher>gewinn){
+				gewinn = muldenUnten[i]-bohnenAnzahlVorher;
+				index=i;
+			}
+		}
+		LetzteMulde gegnerMulde=saeen(index,true);
+		return gegnerMulde.index;
+	}
+
 	public void fangen(LetzteMulde lm,boolean anDerReihe) {
 		int index = lm.index;
 		if(anDerReihe){
