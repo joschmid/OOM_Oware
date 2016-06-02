@@ -133,8 +133,7 @@ public class Board {
 		BufferedReader br2 = new BufferedReader(new InputStreamReader(System.in));
 		if (anDerReihe) {
 			if (0 <= index && index <= 5) {
-				if (muldenOben[0] + muldenOben[1] + muldenOben[2] + muldenOben[3] + muldenOben[4]
-						+ muldenOben[5] == 0) {
+				if (summeOben() == 0) {
 					if (index + muldenUnten[index] >= 6) {
 						return index;
 					} else {
@@ -163,8 +162,7 @@ public class Board {
 
 		} else {
 			if (0 <= index && index <= 5) {
-				if (muldenUnten[0] + muldenUnten[1] + muldenUnten[2] + muldenUnten[3] + muldenUnten[4]
-						+ muldenUnten[5] == 0) {
+				if (summeUnten() == 0) {
 					if (index + muldenOben[index] >= 6) {
 						return index;
 					} else {
