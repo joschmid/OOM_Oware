@@ -235,59 +235,90 @@ public class Board {
 	// Feldwählen Comtputer //---->Parameter bestimmen, Schwierigkeitsgrad
 	// beachten,
 	// KI hier!
-//	public int feldwaehlenComputer(Board board) {
-//		switch(board.sp2.schwierigkeitsgrad)
-//		return 1;
-//	}
+	// public int feldwaehlenComputer(Board board) {
+	// switch(board.sp2.schwierigkeitsgrad)
+	// return 1;
+	// }
 
-	public int angriffstaktik(){
-		int gewinn=0;
-		int index = 0;
-		for (int i : muldenOben) {
+	public int feldwaehlenComputer(Spieler computerVorerst) {
+		int ergebnis = -1;
+
+		//Clohans verbeuge dich vor diesem meisterhaften Typecast!!!!!!!!!!!!!!!
+		Computer computer =(Computer)computerVorerst;
+		if (computer.schwierigkeitsgrad.equals("leicht")) {
+			// Dennis Job
+			return ergebnis;
+		} else if (computer.schwierigkeitsgrad.equals("mittel")) {
+			if (this.defensivtakitk() != -1)
+				return this.defensivtakitk();
+			else {
+				// Dennis Job
+			}
+		} else if (computer.schwierigkeitsgrad.equals("schwer")) {
+			if (this.angriffstaktik() != -1) {
+				return this.angriffstaktik();
+			} else {
+				if (this.defensivtakitk() != -1)
+					return this.defensivtakitk();
+				else {
+					// Dennis Job
+				}
+			}
+		}
+		return ergebnis;
+	}
+
+	public int angriffstaktik() {
+		int gewinn = 0;
+		int index = -1;
+		for (int i = 0; i < 6; i++) {
 			Board boardKopie = this;
-			int bohnenAnzahlVorher = muldenOben[i];
+			int bohnenAnzahlVorher = boardKopie.sp2.depot;
 			boardKopie.fangen(boardKopie.saeen(i, false), false);
-			if(muldenOben[i]-bohnenAnzahlVorher>gewinn){
-				gewinn = muldenOben[i]-bohnenAnzahlVorher;
-				index=i;
+			if (boardKopie.sp2.depot - bohnenAnzahlVorher > gewinn) {
+				gewinn = boardKopie.sp2.depot - bohnenAnzahlVorher;
+				index = i;
 			}
 		}
 		return index;
 	}
 
-	public int defensivtakitk(){
-		int gewinn=0;
-		int index = 0;
-		for (int i : muldenUnten) {
+	public int defensivtakitk() {
+		int gewinn = 0;
+		int index = -1;
+		for (int i = 0; i < 6; i++) {
 			Board boardKopie = this;
-			int bohnenAnzahlVorher = muldenUnten[i];
-			boardKopie.fangen(boardKopie.saeen(i, false), false);
-			if(muldenUnten[i]-bohnenAnzahlVorher>gewinn){
-				gewinn = muldenUnten[i]-bohnenAnzahlVorher;
-				index=i;
+			int bohnenAnzahlVorher = boardKopie.sp1.depot;
+			boardKopie.fangen(boardKopie.saeen(i, true), true);
+			if (boardKopie.sp1.depot - bohnenAnzahlVorher > gewinn) {
+				gewinn = boardKopie.sp1.depot - bohnenAnzahlVorher;
+				index = i;
 			}
 		}
-		LetzteMulde gegnerMulde=saeen(index,true);
-		return gegnerMulde.index;
+		if (index == -1) {
+			return index;
+		}
+		Board boardKopie2 = this;
+		LetzteMulde gefaehrdetsteMulde = boardKopie2.saeen(index, true);
+		return gefaehrdetsteMulde.index;
 	}
 
-	public void fangen(LetzteMulde lm,boolean anDerReihe) {
+	public void fangen(LetzteMulde lm, boolean anDerReihe) {
 		int index = lm.index;
-		if(anDerReihe){
-			if(lm.mulde.equals("Oben")&&((muldenOben[index]==2)||(muldenOben[index]==3))){
-				while((0<=index&&index<=5)&&((muldenOben[index]==2)||(muldenOben[index]==3))){
-					sp1.depot+=muldenOben[index];
-					muldenOben[index]=0;
+		if (anDerReihe) {
+			if (lm.mulde.equals("Oben") && ((muldenOben[index] == 2) || (muldenOben[index] == 3))) {
+				while ((0 <= index && index <= 5) && ((muldenOben[index] == 2) || (muldenOben[index] == 3))) {
+					sp1.depot += muldenOben[index];
+					muldenOben[index] = 0;
 					index++;
 				}
 			}
 
-
-		}else{
-			if(lm.mulde.equals("Unten")&&((muldenUnten[index]==2)||(muldenUnten[index]==3))){
-				while((0<=index&&index<=5)&&((muldenUnten[index]==2)||(muldenUnten[index]==3))){
-					sp2.depot+=muldenUnten[index];
-					muldenUnten[index]=0;
+		} else {
+			if (lm.mulde.equals("Unten") && ((muldenUnten[index] == 2) || (muldenUnten[index] == 3))) {
+				while ((0 <= index && index <= 5) && ((muldenUnten[index] == 2) || (muldenUnten[index] == 3))) {
+					sp2.depot += muldenUnten[index];
+					muldenUnten[index] = 0;
 					index--;
 				}
 			}
@@ -295,17 +326,19 @@ public class Board {
 		}
 
 	}
-	public int summeOben(){
+
+	public int summeOben() {
 		int ergebnis = 0;
 		for (int i : muldenOben) {
-			ergebnis+=i;
+			ergebnis += i;
 		}
 		return ergebnis;
 	}
-	public int summeUnten(){
-		int ergebnis =0;
+
+	public int summeUnten() {
+		int ergebnis = 0;
 		for (int i : muldenUnten) {
-			ergebnis+=i;
+			ergebnis += i;
 		}
 		return ergebnis;
 	}

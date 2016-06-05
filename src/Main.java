@@ -67,11 +67,13 @@ public class Main {
 					break;
 				default:
 					System.out.println("Falsche Eingabe! Bitte Spiel neustarten");
+					System.exit(0);
 				}
 				spielstart = true;
 				break;
 			default:
 				System.err.println("Falsche Eingabe! Bitte Spiel neustarten");
+				System.exit(0);
 			}
 		}
 
@@ -158,7 +160,8 @@ public class Main {
 
 				if (!anDerReihe) {
 					// Computer Spielzug implementieren
-					System.out.println("Computer macht Spielzug");
+					board.fangen(board.saeen(board.feldwaehlenComputer(board.sp2), anDerReihe),anDerReihe);
+
 					anDerReihe = true;
 				} else {
 					konsolenEingabe(br, x, anDerReihe, board);
