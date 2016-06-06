@@ -160,11 +160,11 @@ public class Main {
 
 				if (!anDerReihe) {
 					// Computer Spielzug implementieren
-					board.fangen(board.saeen(board.feldwaehlenComputer(board.sp2), anDerReihe),anDerReihe);
-
+					board.fangen(board.saeen(board.feldwaehlenComputer(board.sp2), anDerReihe), anDerReihe);
 					anDerReihe = true;
 				} else {
 					konsolenEingabe(br, x, anDerReihe, board);
+					anDerReihe = false;
 				}
 				board.boardAnzeigen();
 			} while (!statusAbfragen(board, keineDepotAenderung, br, anDerReihe));

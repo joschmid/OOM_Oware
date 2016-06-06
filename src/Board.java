@@ -246,13 +246,13 @@ public class Board {
 		//Clohans verbeuge dich vor diesem meisterhaften Typecast!!!!!!!!!!!!!!!
 		Computer computer =(Computer)computerVorerst;
 		if (computer.schwierigkeitsgrad.equals("leicht")) {
-			// Dennis Job
-			return ergebnis;
+
+			return minimaleBohnen(muldenOben);
 		} else if (computer.schwierigkeitsgrad.equals("mittel")) {
 			if (this.defensivtakitk() != -1)
 				return this.defensivtakitk();
 			else {
-				// Dennis Job
+				return minimaleBohnen(muldenOben);
 			}
 		} else if (computer.schwierigkeitsgrad.equals("schwer")) {
 			if (this.angriffstaktik() != -1) {
@@ -261,7 +261,7 @@ public class Board {
 				if (this.defensivtakitk() != -1)
 					return this.defensivtakitk();
 				else {
-					// Dennis Job
+					return minimaleBohnen(muldenOben);
 				}
 			}
 		}
@@ -342,7 +342,7 @@ public class Board {
 		}
 		return ergebnis;
 	}
-	
+
 	public int minimaleBohnen(int[] mulde) {
 		int arrayIndex = 0;
 		int i = 0;
