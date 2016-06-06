@@ -57,7 +57,7 @@ public class Board {
 	 *            Mulde die der Spieler zum saeen ausgewaehlt hat
 	 * @param sp1AnDerReihe
 	 *            zeigt ob Spieler 1 an der Reihe ist
-	 * @return gibt die letzte Mulde auf die eine Bohne fiel zurück
+	 * @return gibt die letzte Mulde auf die eine Bohne fiel zurï¿½ck
 	 */
 	public LetzteMulde saeen(int startMulde, boolean sp1AnDerReihe) {
 
@@ -121,13 +121,13 @@ public class Board {
 	}
 
 	/**
-	 * Methode die überprüft ob ein vom Spieler (!) gewähltes Feld zulässig ist
+	 * Methode die ï¿½berprï¿½ft ob ein vom Spieler (!) gewï¿½hltes Feld zulï¿½ssig ist
 	 *
 	 * @param anDerReihe
 	 *            gibt an ob Spieler 1 an der Reihe ist
 	 * @param index
-	 *            vom Spieler gewähltes Feld
-	 * @return gibt zulässigen Index zurück
+	 *            vom Spieler gewï¿½hltes Feld
+	 * @return gibt zulï¿½ssigen Index zurï¿½ck
 	 */
 	public int feldwaehlenUser(boolean anDerReihe, int index) throws IOException {
 		BufferedReader br2 = new BufferedReader(new InputStreamReader(System.in));
@@ -137,7 +137,7 @@ public class Board {
 					if (index + muldenUnten[index] >= 6) {
 						return index;
 					} else {
-						System.out.println("Fehler ungültige Eingabe: Gegner hat keine Steine mehr");
+						System.out.println("Fehler ungï¿½ltige Eingabe: Gegner hat keine Steine mehr");
 						System.out.println("bitte neue Eingabe:");
 						index = buchstabeZuZahl(br2.readLine());
 						return feldwaehlenUser(anDerReihe, index);
@@ -146,14 +146,14 @@ public class Board {
 					if (muldenUnten[index] > 0) {
 						return index;
 					} else {
-						System.out.println("Fehler ungültige Eingabe: Ausgewähltes Feld ist leer");
+						System.out.println("Fehler ungï¿½ltige Eingabe: Ausgewï¿½hltes Feld ist leer");
 						System.out.println("bitte neue Eingabe:");
 						index = buchstabeZuZahl(br2.readLine());
 						return feldwaehlenUser(anDerReihe, index);
 					}
 				}
 			} else {
-				System.out.println("Fehler ungültige Eingabe: Buchstabe liegt nicht im eigenen Spielfeld");
+				System.out.println("Fehler ungï¿½ltige Eingabe: Buchstabe liegt nicht im eigenen Spielfeld");
 				System.out.println("bitte neue Eingabe:");
 				index = buchstabeZuZahl(br2.readLine());
 				return feldwaehlenUser(anDerReihe, index);
@@ -166,7 +166,7 @@ public class Board {
 					if (index + muldenOben[index] >= 6) {
 						return index;
 					} else {
-						System.out.println("Fehler ungültige Eingabe: Gegner hat keine Steine mehr");
+						System.out.println("Fehler ungï¿½ltige Eingabe: Gegner hat keine Steine mehr");
 						System.out.println("bitte neue Eingabe:");
 						index = buchstabeZuZahl(br2.readLine());
 						return feldwaehlenUser(anDerReihe, index);
@@ -175,14 +175,14 @@ public class Board {
 					if (muldenOben[index] > 0) {
 						return index;
 					} else {
-						System.out.println("Fehler ungültige Eingabe: Ausgewähltes Feld ist leer");
+						System.out.println("Fehler ungï¿½ltige Eingabe: Ausgewï¿½hltes Feld ist leer");
 						System.out.println("bitte neue Eingabe:");
 						index = buchstabeZuZahl(br2.readLine());
 						return feldwaehlenUser(anDerReihe, index);
 					}
 				}
 			} else {
-				System.out.println("Fehler ungültige Eingabe: Buchstabe liegt nicht im eigenen Spielfeld");
+				System.out.println("Fehler ungï¿½ltige Eingabe: Buchstabe liegt nicht im eigenen Spielfeld");
 				System.out.println("bitte neue Eingabe:");
 				index = buchstabeZuZahl(br2.readLine());
 				return feldwaehlenUser(anDerReihe, index);
@@ -232,7 +232,7 @@ public class Board {
 		}
 	}
 
-	// Feldwählen Comtputer //---->Parameter bestimmen, Schwierigkeitsgrad
+	// Feldwï¿½hlen Comtputer //---->Parameter bestimmen, Schwierigkeitsgrad
 	// beachten,
 	// KI hier!
 	// public int feldwaehlenComputer(Board board) {
@@ -341,5 +341,24 @@ public class Board {
 			ergebnis += i;
 		}
 		return ergebnis;
+	}
+	
+	public int minimaleBohnen(int[] mulde) {
+		int arrayIndex = 0;
+		int i = 0;
+		while (i+1 < mulde.length) {
+
+			if (mulde[i] <= mulde[i + 1]) {
+				if (mulde[i] <= mulde[arrayIndex])
+					arrayIndex = i;
+			} else {
+				if (mulde[i + 1] <= mulde[arrayIndex])
+					arrayIndex = i + 1;
+			}
+			i++;
+
+		}
+
+		return arrayIndex;
 	}
 }
