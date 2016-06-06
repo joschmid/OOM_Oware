@@ -31,7 +31,7 @@ public class Board {
 			muldenOben[k] = 4;
 		}
 		for (int k = 0; k < muldenUnten.length; k++) {
-			muldenUnten[k] = 4;
+			muldenUnten[k] = 1;
 		}
 	}
 
@@ -121,7 +121,8 @@ public class Board {
 	}
 
 	/**
-	 * Methode die �berpr�ft ob ein vom Spieler (!) gew�hltes Feld zul�ssig ist
+	 * Methode die �berpr�ft ob ein vom Spieler (!) gew�hltes Feld
+	 * zul�ssig ist
 	 *
 	 * @param anDerReihe
 	 *            gibt an ob Spieler 1 an der Reihe ist
@@ -243,16 +244,17 @@ public class Board {
 	public int feldwaehlenComputer(Spieler computerVorerst) {
 		int ergebnis = -1;
 
-		//Clohans verbeuge dich vor diesem meisterhaften Typecast!!!!!!!!!!!!!!!
-		Computer computer =(Computer)computerVorerst;
+		// Clohans verbeuge dich vor diesem meisterhaften
+		// Typecast!!!!!!!!!!!!!!!
+		Computer computer = (Computer) computerVorerst;
 		if (computer.schwierigkeitsgrad.equals("leicht")) {
 
-			return minimaleBohnen(muldenOben);
+			return minimaleBohnen(muldenOben, 0);
 		} else if (computer.schwierigkeitsgrad.equals("mittel")) {
 			if (this.defensivtakitk() != -1)
 				return this.defensivtakitk();
 			else {
-				return minimaleBohnen(muldenOben);
+				return minimaleBohnen(muldenOben, 0);
 			}
 		} else if (computer.schwierigkeitsgrad.equals("schwer")) {
 			if (this.angriffstaktik() != -1) {
@@ -261,7 +263,7 @@ public class Board {
 				if (this.defensivtakitk() != -1)
 					return this.defensivtakitk();
 				else {
-					return minimaleBohnen(muldenOben);
+					return minimaleBohnen(muldenOben, 0);
 				}
 			}
 		}
@@ -343,22 +345,50 @@ public class Board {
 		return ergebnis;
 	}
 
-	public int minimaleBohnen(int[] mulde) {
+	public int minimaleBohnen(int[] mulde, int indexHilfe) {
 		int arrayIndex = 0;
-		int i = 0;
-		while (i+1 < mulde.length) {
 
-			if (mulde[i] <= mulde[i + 1]) {
-				if (mulde[i] <= mulde[arrayIndex])
-					arrayIndex = i;
+		while (indexHilfe + 1 < mulde.length) {
+
+			if (mulde[indexHilfe] <= mulde[indexHilfe + 1]) {
+				if (mulde[indexHilfe] <= mulde[arrayIndex])
+					arrayIndex = indexHilfe;
 			} else {
-				if (mulde[i + 1] <= mulde[arrayIndex])
-					arrayIndex = i + 1;
+				if (mulde[indexHilfe + 1] <= mulde[arrayIndex])
+					arrayIndex = indexHilfe + 1;
 			}
-			i++;
+			indexHilfe++;
 
 		}
+		if (mulde[arrayIndex] != 0) {
 
-		return arrayIndex;
+			return arrayIndex;
+		} else {
+			if (mulde[0] != 0) {
+				return 0;
+			} else {
+				if (mulde[1] != 0) {
+					return 1;
+				} else {
+					if (mulde[2] != 0) {
+						return 2;
+					} else {
+						if (mulde[3] != 0) {
+							return 3;
+						} else {
+							if (mulde[4] != 0) {
+								return 4;
+							} else {
+								if (mulde[5] != 0) {
+									return 5;
+								}
+							}
+							return 0;
+
+						}
+					}
+				}
+			}
+		}
 	}
 }
