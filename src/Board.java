@@ -24,30 +24,29 @@ public class Board {
 	}
 
 	public Board() {
-		this.sp1 = null;
-		this.sp2 = null;
 
 		for (int k = 0; k < muldenOben.length; k++) {
 			muldenOben[k] = 4;
 		}
 		for (int k = 0; k < muldenUnten.length; k++) {
-			muldenUnten[k] = 1;
+			muldenUnten[k] = 4;
 		}
 	}
 
 	void boardAnzeigen() {
-
-		System.out.print("=================" + sp2.name + "==================\n");
+		System.out.print("==========================================\n");
+		System.out.print(sp2.name+"           Score: " + sp2.depot+"\n");
+		System.out.print("==========================================\n");
 		System.out.print("A\tB\tC\tD\tE\tF\n");
 		System.out.print(muldenOben[0] + "\t" + muldenOben[1] + "\t" + muldenOben[2] + "\t" + muldenOben[3] + "\t"
 				+ muldenOben[4] + "\t" + muldenOben[5] + "\n");
-		System.out.print("-------------------------------------------\n");
+		System.out.print("------------------------------------------\n");
 		System.out.print(muldenUnten[0] + "\t" + muldenUnten[1] + "\t" + muldenUnten[2] + "\t" + muldenUnten[3] + "\t"
 				+ muldenUnten[4] + "\t" + muldenUnten[5] + "\n");
 		System.out.print("a\tb\tc\td\te\tf\n");
-		System.out.print("====================" + sp1.name + "====================\n");
-		System.out.print(sp2.name + " Score: " + sp2.depot + "\n" + sp1.name + " Score: " + sp1.depot + "\n\n");
-
+		System.out.print("==========================================\n");
+		System.out.print(sp1.name+"           Score: " + sp1.depot+"\n");
+		System.out.print("==========================================\n\n\n");
 	}
 
 	/**
@@ -67,7 +66,7 @@ public class Board {
 			int bohnen = muldenUnten[k];
 			muldenUnten[k] = 0;
 			LetzteMulde lm = new LetzteMulde();
-
+			lm.mulde = "Unten";
 			while (bohnen > 0) {
 				while (k < 6 && bohnen > 0) {
 					if (startMulde != k) {
@@ -94,7 +93,7 @@ public class Board {
 			int bohnen = muldenOben[k];
 			muldenOben[k] = 0;
 			LetzteMulde lm = new LetzteMulde();
-
+			lm.mulde = "Oben";
 			while (bohnen > 0) {
 				while (k >= 0 && bohnen > 0) {
 					if (startMulde != k) {
@@ -249,21 +248,21 @@ public class Board {
 		Computer computer = (Computer) computerVorerst;
 		if (computer.schwierigkeitsgrad.equals("leicht")) {
 
-			return minimaleBohnen(muldenOben, 0);
+			return minimaleBohnen(muldenOben);
 		} else if (computer.schwierigkeitsgrad.equals("mittel")) {
-			if (this.defensivtakitk() != -1)
-				return this.defensivtakitk();
+			if (this.defensivtaktik() != -1)
+				return this.defensivtaktik();
 			else {
-				return minimaleBohnen(muldenOben, 0);
+				return minimaleBohnen(muldenOben);
 			}
 		} else if (computer.schwierigkeitsgrad.equals("schwer")) {
 			if (this.angriffstaktik() != -1) {
 				return this.angriffstaktik();
 			} else {
-				if (this.defensivtakitk() != -1)
-					return this.defensivtakitk();
+				if (this.defensivtaktik() != -1)
+					return this.defensivtaktik();
 				else {
-					return minimaleBohnen(muldenOben, 0);
+					return minimaleBohnen(muldenOben);
 				}
 			}
 		}
@@ -274,10 +273,10 @@ public class Board {
 		int gewinn = 0;
 		int index = -1;
 		for (int i = 0; i < 6; i++) {
-			Board boardKopie = this;
+			Board boardKopie = spielstandAktuell();
 			int bohnenAnzahlVorher = boardKopie.sp2.depot;
 			boardKopie.fangen(boardKopie.saeen(i, false), false);
-			if (boardKopie.sp2.depot - bohnenAnzahlVorher > gewinn) {
+			if ((boardKopie.sp2.depot - bohnenAnzahlVorher) > gewinn) {
 				gewinn = boardKopie.sp2.depot - bohnenAnzahlVorher;
 				index = i;
 			}
@@ -285,14 +284,14 @@ public class Board {
 		return index;
 	}
 
-	public int defensivtakitk() {
+	public int defensivtaktik() {
 		int gewinn = 0;
 		int index = -1;
 		for (int i = 0; i < 6; i++) {
-			Board boardKopie = this;
+			Board boardKopie = spielstandAktuell();
 			int bohnenAnzahlVorher = boardKopie.sp1.depot;
 			boardKopie.fangen(boardKopie.saeen(i, true), true);
-			if (boardKopie.sp1.depot - bohnenAnzahlVorher > gewinn) {
+			if ((boardKopie.sp1.depot - bohnenAnzahlVorher) > gewinn) {
 				gewinn = boardKopie.sp1.depot - bohnenAnzahlVorher;
 				index = i;
 			}
@@ -310,7 +309,7 @@ public class Board {
 		if (anDerReihe) {
 			if (lm.mulde.equals("Oben") && ((muldenOben[index] == 2) || (muldenOben[index] == 3))) {
 				while ((0 <= index && index <= 5) && ((muldenOben[index] == 2) || (muldenOben[index] == 3))) {
-					sp1.depot += muldenOben[index];
+					this.sp1.depot += muldenOben[index];
 					muldenOben[index] = 0;
 					index++;
 				}
@@ -319,7 +318,7 @@ public class Board {
 		} else {
 			if (lm.mulde.equals("Unten") && ((muldenUnten[index] == 2) || (muldenUnten[index] == 3))) {
 				while ((0 <= index && index <= 5) && ((muldenUnten[index] == 2) || (muldenUnten[index] == 3))) {
-					sp2.depot += muldenUnten[index];
+					this.sp2.depot += muldenUnten[index];
 					muldenUnten[index] = 0;
 					index--;
 				}
@@ -345,50 +344,39 @@ public class Board {
 		return ergebnis;
 	}
 
-	public int minimaleBohnen(int[] mulde, int indexHilfe) {
+	public int minimaleBohnen(int[] mulde) {
 		int arrayIndex = 0;
-
-		while (indexHilfe + 1 < mulde.length) {
-
-			if (mulde[indexHilfe] <= mulde[indexHilfe + 1]) {
-				if (mulde[indexHilfe] <= mulde[arrayIndex])
-					arrayIndex = indexHilfe;
-			} else {
-				if (mulde[indexHilfe + 1] <= mulde[arrayIndex])
-					arrayIndex = indexHilfe + 1;
-			}
-			indexHilfe++;
-
-		}
-		if (mulde[arrayIndex] != 0) {
-
-			return arrayIndex;
-		} else {
-			if (mulde[0] != 0) {
-				return 0;
-			} else {
-				if (mulde[1] != 0) {
-					return 1;
-				} else {
-					if (mulde[2] != 0) {
-						return 2;
+		int i = 0;
+		while (i + 1 < mulde.length) {
+			if (mulde[i] < mulde[i + 1]) {
+				if (mulde[i] <= mulde[arrayIndex]) {
+					if (mulde[i] == 0) {
+						arrayIndex = i + 1;
 					} else {
-						if (mulde[3] != 0) {
-							return 3;
-						} else {
-							if (mulde[4] != 0) {
-								return 4;
-							} else {
-								if (mulde[5] != 0) {
-									return 5;
-								}
-							}
-							return 0;
-
-						}
+						arrayIndex = i;
+					}
+				}
+			} else {
+				if (mulde[i + 1] < mulde[arrayIndex]) {
+					if (mulde[i + 1] != 0) {
+						arrayIndex = i;
 					}
 				}
 			}
+			i++;
 		}
+		return arrayIndex;
+	}
+
+	public Board spielstandAktuell() {
+		Board boardk = new Board();
+		boardk.muldenOben = this.muldenOben.clone();
+		boardk.muldenUnten = this.muldenUnten.clone();
+		boardk.sp1= new Spieler();
+		boardk.sp2 = new Spieler ();
+		boardk.sp1.depot=this.sp1.depot;
+		boardk.sp2.depot=this.sp2.depot;
+
+		return boardk;
 	}
 }

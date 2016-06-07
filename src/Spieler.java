@@ -4,7 +4,7 @@ public class Spieler {
 	public int depot;
 
 	public Spieler() {
-		this.name = null;
+		this.name = "default";
 		this.depot = 0;
 	}
 

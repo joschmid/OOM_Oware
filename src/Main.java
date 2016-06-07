@@ -160,9 +160,12 @@ public class Main {
 
 				if (!anDerReihe) {
 					// Computer Spielzug implementieren
+					System.out.println("Computer macht Spielzug.");
 					board.fangen(board.saeen(board.feldwaehlenComputer(board.sp2), anDerReihe), anDerReihe);
 					anDerReihe = true;
 				} else {
+					System.out.println(board.sp1.name+" macht Spielzug.");
+					System.out.printf("Spielzug " + sp1.name + ", bitte Zug angeben:");
 					konsolenEingabe(br, x, anDerReihe, board);
 					anDerReihe = false;
 				}
