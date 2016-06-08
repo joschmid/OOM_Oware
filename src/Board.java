@@ -2,13 +2,21 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+/**
+ * Das Spielfeld.
+ * 
+ * @author Martin (Mobil)
+ *
+ */
 public class Board {
+	// Attribute
 	int[] muldenUnten = new int[6];
 	int[] muldenOben = new int[6];
 
 	public Spieler sp1;
 	public Spieler sp2;
 
+	// Konstruktoren
 	public Board(Spieler sp1, Spieler sp2) {
 
 		this.sp1 = sp1;
@@ -32,12 +40,14 @@ public class Board {
 			muldenUnten[k] = 4;
 		}
 	}
-/**
- * Methode die das Spielfeld auf der Konsole ausgibt
- */
+
+	// Methoden
+	/**
+	 * Methode die das Spielfeld auf der Konsole ausgibt
+	 */
 	void boardAnzeigen() {
 		System.out.print("==========================================\n");
-		System.out.print(sp2.name+"           Score: " + sp2.depot+"\n");
+		System.out.print(sp2.name + "           Score: " + sp2.depot + "\n");
 		System.out.print("==========================================\n");
 		System.out.print("A\tB\tC\tD\tE\tF\n");
 		System.out.print(muldenOben[0] + "\t" + muldenOben[1] + "\t" + muldenOben[2] + "\t" + muldenOben[3] + "\t"
@@ -47,7 +57,7 @@ public class Board {
 				+ muldenUnten[4] + "\t" + muldenUnten[5] + "\n");
 		System.out.print("a\tb\tc\td\te\tf\n");
 		System.out.print("==========================================\n");
-		System.out.print(sp1.name+"           Score: " + sp1.depot+"\n");
+		System.out.print(sp1.name + "           Score: " + sp1.depot + "\n");
 		System.out.print("==========================================\n\n\n");
 	}
 
@@ -234,13 +244,14 @@ public class Board {
 		}
 	}
 
-
-/**
- *Methode die bestimmt welches Feld der Computer wählt.
- * @param computerVorerst Computer der mitgegeben wird um festzulegen welche Taktik
- * verwendet wird.
- * @return returnt das gewählte Feld.
- */
+	/**
+	 * Methode die bestimmt welches Feld der Computer wählt.
+	 * 
+	 * @param computerVorerst
+	 *            Computer der mitgegeben wird um festzulegen welche Taktik
+	 *            verwendet wird.
+	 * @return returnt das gewählte Feld.
+	 */
 	public int feldwaehlenComputer(Spieler computerVorerst) {
 		int ergebnis = -1;
 
@@ -269,11 +280,13 @@ public class Board {
 		}
 		return ergebnis;
 	}
-/**
- * Methode die die Angriffstaktik des Computers enthält.
- * @return returnt entweder das Feld, dass am meisten Gewinn bringt oder -1 wenn
- * kein Feld Gewinn bringt.
- */
+
+	/**
+	 * Methode die die Angriffstaktik des Computers enthält.
+	 * 
+	 * @return returnt entweder das Feld, dass am meisten Gewinn bringt oder -1
+	 *         wenn kein Feld Gewinn bringt.
+	 */
 	public int angriffstaktik() {
 		int gewinn = 0;
 		int index = -1;
@@ -291,8 +304,9 @@ public class Board {
 
 	/**
 	 * Methode die die Defensivtatktik des Computers enthält.
-	 * @return returnt entweder das gefährdetste Feld oder -1 wenn
-	 * kein Feld gefärdet ist.
+	 * 
+	 * @return returnt entweder das gefährdetste Feld oder -1 wenn kein Feld
+	 *         gefärdet ist.
 	 */
 	public int defensivtaktik() {
 		int gewinn = 0;
@@ -315,10 +329,13 @@ public class Board {
 	}
 
 	/**
-	 * Methode die nach dem Saevorgang bestimmt ob etwas gefangen werden kann und falls ja
-	 * dies auch dem Depot zurechnet.
-	 * @param lm die letzte Mulde des Saevorgangs.
-	 * @param anDerReihe Boolean der angibt welcher Spieler an der Reihe ist.
+	 * Methode die nach dem Saevorgang bestimmt ob etwas gefangen werden kann
+	 * und falls ja dies auch dem Depot zurechnet.
+	 * 
+	 * @param lm
+	 *            die letzte Mulde des Saevorgangs.
+	 * @param anDerReihe
+	 *            Boolean der angibt welcher Spieler an der Reihe ist.
 	 */
 	public void fangen(LetzteMulde lm, boolean anDerReihe) {
 		int index = lm.index;
@@ -343,10 +360,12 @@ public class Board {
 		}
 
 	}
-/**
- * Hilfsmethode die den gesamten Inhalt der oberen Feldhälfte bestimmt.
- * @return gesamter Inhalt der oberen Feldhälfte
- */
+
+	/**
+	 * Hilfsmethode die den gesamten Inhalt der oberen Feldhälfte bestimmt.
+	 * 
+	 * @return gesamter Inhalt der oberen Feldhälfte
+	 */
 	public int summeOben() {
 		int ergebnis = 0;
 		for (int i : muldenOben) {
@@ -357,6 +376,7 @@ public class Board {
 
 	/**
 	 * Hilfsmethode die den gesamten Inhalt der unteren Feldhälfte bestimmt.
+	 * 
 	 * @return gesamter Inhalt der unteren Feldhälfte
 	 */
 	public int summeUnten() {
@@ -366,11 +386,14 @@ public class Board {
 		}
 		return ergebnis;
 	}
-/**
- * Methode die das kleinste Feld ungleich 0 des Computers bestimmt.
- * @param mulde array der Mulden des Computers
- * @return gewaehlter Array- Index
- */
+
+	/**
+	 * Methode die das kleinste Feld ungleich 0 des Computers bestimmt.
+	 * 
+	 * @param mulde
+	 *            array der Mulden des Computers
+	 * @return gewaehlter Array- Index
+	 */
 	public int minimaleBohnen(int[] mulde) {
 		int arrayIndex = 0;
 		int i = 0;
@@ -397,16 +420,17 @@ public class Board {
 
 	/**
 	 * Methode die den aktuellen Spielstand kopiert (noetig zur Simulation)
+	 * 
 	 * @return returnt ein neues Board mit gleichem Inhalt des ursprünglichen.
 	 */
 	public Board spielstandAktuell() {
 		Board boardk = new Board();
 		boardk.muldenOben = this.muldenOben.clone();
 		boardk.muldenUnten = this.muldenUnten.clone();
-		boardk.sp1= new Spieler();
-		boardk.sp2 = new Spieler ();
-		boardk.sp1.depot=this.sp1.depot;
-		boardk.sp2.depot=this.sp2.depot;
+		boardk.sp1 = new Spieler();
+		boardk.sp2 = new Spieler();
+		boardk.sp1.depot = this.sp1.depot;
+		boardk.sp2.depot = this.sp2.depot;
 
 		return boardk;
 	}
