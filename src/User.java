@@ -8,7 +8,4 @@ public class User extends Spieler {
 
 	}
 
-	public int feldwaehlenUser(int feld) {
-		return feld;
-	}
 }

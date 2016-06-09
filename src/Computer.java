@@ -11,8 +11,4 @@ public class Computer extends Spieler {
 		this.schwierigkeitsgrad = null;
 	}
 
-	public int feldwaehlenComputer(int feld) {
-		return feld;
-	}
-
 }
