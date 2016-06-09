@@ -4,7 +4,7 @@ import java.io.InputStreamReader;
 
 /**
  * Das Spielfeld.
- * 
+ *
  * @author Martin (Mobil)
  *
  */
@@ -246,7 +246,7 @@ public class Board {
 
 	/**
 	 * Methode die bestimmt welches Feld der Computer wählt.
-	 * 
+	 *
 	 * @param computerVorerst
 	 *            Computer der mitgegeben wird um festzulegen welche Taktik
 	 *            verwendet wird.
@@ -283,7 +283,7 @@ public class Board {
 
 	/**
 	 * Methode die die Angriffstaktik des Computers enthält.
-	 * 
+	 *
 	 * @return returnt entweder das Feld, dass am meisten Gewinn bringt oder -1
 	 *         wenn kein Feld Gewinn bringt.
 	 */
@@ -304,7 +304,7 @@ public class Board {
 
 	/**
 	 * Methode die die Defensivtatktik des Computers enthält.
-	 * 
+	 *
 	 * @return returnt entweder das gefährdetste Feld oder -1 wenn kein Feld
 	 *         gefärdet ist.
 	 */
@@ -323,7 +323,7 @@ public class Board {
 		if (index == -1) {
 			return index;
 		}
-		Board boardKopie2 = this;
+		Board boardKopie2 = spielstandAktuell();
 		LetzteMulde gefaehrdetsteMulde = boardKopie2.saeen(index, true);
 		return gefaehrdetsteMulde.index;
 	}
@@ -331,7 +331,7 @@ public class Board {
 	/**
 	 * Methode die nach dem Saevorgang bestimmt ob etwas gefangen werden kann
 	 * und falls ja dies auch dem Depot zurechnet.
-	 * 
+	 *
 	 * @param lm
 	 *            die letzte Mulde des Saevorgangs.
 	 * @param anDerReihe
@@ -363,7 +363,7 @@ public class Board {
 
 	/**
 	 * Hilfsmethode die den gesamten Inhalt der oberen Feldhälfte bestimmt.
-	 * 
+	 *
 	 * @return gesamter Inhalt der oberen Feldhälfte
 	 */
 	public int summeOben() {
@@ -376,7 +376,7 @@ public class Board {
 
 	/**
 	 * Hilfsmethode die den gesamten Inhalt der unteren Feldhälfte bestimmt.
-	 * 
+	 *
 	 * @return gesamter Inhalt der unteren Feldhälfte
 	 */
 	public int summeUnten() {
@@ -389,7 +389,7 @@ public class Board {
 
 	/**
 	 * Methode die das kleinste Feld ungleich 0 des Computers bestimmt.
-	 * 
+	 *
 	 * @param mulde
 	 *            array der Mulden des Computers
 	 * @return gewaehlter Array- Index
@@ -420,7 +420,7 @@ public class Board {
 
 	/**
 	 * Methode die den aktuellen Spielstand kopiert (noetig zur Simulation)
-	 * 
+	 *
 	 * @return returnt ein neues Board mit gleichem Inhalt des ursprünglichen.
 	 */
 	public Board spielstandAktuell() {
