@@ -49,6 +49,7 @@ public class Main {
 				String schwierigkeit = br.readLine();
 
 				spctrue = true;
+
 				// Schwierigkeit festlegen
 				switch (schwierigkeit) {
 				case "leicht":
@@ -71,6 +72,69 @@ public class Main {
 				}
 				spielstart = true;
 				break;
+
+
+				// Für Testzwecke array manuell setzen
+				case "testSpieler":
+					System.out.println("Sie befinden sich im Test-Modus: Spieler gegen Spieler");
+					sp1.name = "Spieler1";
+					sp2.name = "Spieler2";
+					System.out.println("Geben sie nacheinander die Werte für die oberen Mulden an:");
+					String werteOben = br.readLine();
+					String[] zahlen=werteOben.split("\\s");
+					for(int i=0;i<zahlen.length;i++){
+					board.muldenOben[i]=Integer.parseInt(zahlen[i]);
+					}
+					System.out.println("Geben sie nacheinander die Werte für die unteren Mulden an:");
+					String werteUnten = br.readLine();
+					zahlen=werteUnten.split("\\s");
+					for(int i=0;i<zahlen.length;i++){
+					board.muldenUnten[i]=Integer.parseInt(zahlen[i]);
+					}
+					spielstart = true;
+					break;
+				case "testComputer":
+					sp1.name = "Spieler1";
+
+					System.out.println("Bitte Schwierigkeit eingeben(leicht/mittel/schwer)");
+					String schwierigkeitTest = br.readLine();
+
+					spctrue = true;
+
+					// Schwierigkeit festlegen
+					switch (schwierigkeitTest) {
+					case "leicht":
+						spc.schwierigkeitsgrad = schwierigkeitTest;
+						spc.name = "Computer (leicht)";
+						break;
+
+					case "mittel":
+						spc.schwierigkeitsgrad = schwierigkeitTest;
+						spc.name = "Computer (mittel)";
+						break;
+
+					case "schwer":
+						spc.schwierigkeitsgrad = schwierigkeitTest;
+						spc.name = "Computer (schwer)";
+						break;
+					default:
+						System.out.println("Falsche Eingabe! Bitte Spiel neustarten");
+						System.exit(0);
+					}
+					System.out.println("Geben sie nacheinander die Werte für die oberen Mulden an:");
+					String werteOben2 = br.readLine();
+					String[] zahlen2=werteOben2.split("\\s");
+					for(int i=0;i<zahlen2.length;i++){
+					board.muldenOben[i]=Integer.parseInt(zahlen2[i]);
+					}
+					System.out.println("Geben sie nacheinander die Werte für die unteren Mulden an:");
+					String werteUnten2 = br.readLine();
+					zahlen2=werteUnten2.split("\\s");
+					for(int i=0;i<zahlen2.length;i++){
+					board.muldenUnten[i]=Integer.parseInt(zahlen2[i]);
+					}
+					spielstart = true;
+					break;
 			default:
 				System.err.println("Falsche Eingabe! Bitte Spiel neustarten");
 				System.exit(0);

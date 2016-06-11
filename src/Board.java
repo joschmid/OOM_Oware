@@ -254,9 +254,6 @@ public class Board {
 	 */
 	public int feldwaehlenComputer(Spieler computerVorerst) {
 		int ergebnis = -1;
-
-		// Clohans verbeuge dich vor diesem meisterhaften
-		// Typecast!!!!!!!!!!!!!!!
 		Computer computer = (Computer) computerVorerst;
 		if (computer.schwierigkeitsgrad.equals("leicht")) {
 
